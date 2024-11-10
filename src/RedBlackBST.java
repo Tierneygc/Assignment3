@@ -29,6 +29,9 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
         return null;
     }
 
+    public void put(Key key, Value val)
+    { root = put(root, key, val); }
+
     private Node put(Node h, Key key, Value val){
         if (h == null) return new Node(key, val, RED);
         int cmp = key.compareTo(h.key);
@@ -72,6 +75,26 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
         h.left.color = BLACK;
         h.right.color = BLACK;
     }
+
+    public boolean isBalanced() {
+        int black = 0;     // number of black links on path from root to min
+        Node x = root;
+        while (x != null) {
+            if (!isRed(x)) black++;
+            x = x.left;
+        }
+        return isBalanced(root, black);
+    }
+
+    private boolean isBalanced(Node x, int black) {
+        if (x == null) return black == 0;
+        if (!isRed(x)) black--;
+        return isBalanced(x.left, black) && isBalanced(x.right, black);
+    }
+
+
+
+
 
 
 }
