@@ -29,6 +29,8 @@ public class Main {
                 Product product = new Product(productName, productCategory,  productPrice);
                 products.put(productId, product);
 
+
+
             }
 
         } catch (IOException e) {
