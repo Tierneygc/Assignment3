@@ -10,7 +10,10 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
         boolean color;
         private int size;
 
-        public Node(Key key, Value val, boolean red, int size) {
+        public Node(Key key, Value val, boolean color, int size) {
+            this.key = key;
+            this.val = val;
+            this.color = color;
             this.size = size;
         }
     }
@@ -53,6 +56,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
     }
 
     public void put(Key key, Value val) {
+        //System.out.println(key);
         if (key == null) throw new IllegalArgumentException("first argument to put() is null");
         if (val == null) {
             delete(key);
@@ -65,10 +69,17 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
     }
 
     private Node put(Node h, Key key, Value val) {
+        //System.out.println(key);
+
         if (h == null) {
+           // System.out.println("h");
             return new Node(key, val, RED, 1);
+
+
         }
         else {
+//            System.out.println(key);
+//            System.out.println(root.key);
 
             int cmp = key.compareTo(h.key);
             if (cmp < 0) h.left = put(h.left, key, val);

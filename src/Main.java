@@ -12,13 +12,19 @@ public class Main {
         String csvFile = "src/amazon-product-data.csv";
         String line = "";
         String csvSplitBy = ",";
-
+        int k = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-
-            while ((line = br.readLine()) != null) {
+br.readLine();
+            while (k < 100 && (line = br.readLine()) != null) {
 
                 // Use comma as separator
                 String[] data = line.split(csvSplitBy);
+
+                for(String d : data){
+                    System.out.println(d);
+
+                }
+                System.out.println();
 
                 // Process the data
                 String productId = data[0];
@@ -30,14 +36,14 @@ public class Main {
                 products.put(productId, product);
 
 
-
+                k++;
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println(products.isBalanced());
+        //System.out.println(products.isBalanced());
 
 
         }
