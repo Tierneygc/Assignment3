@@ -57,10 +57,16 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
 
     public void put(Key key, Value val) {
         //System.out.println(key);
-        if (key == null) throw new IllegalArgumentException("first argument to put() is null");
-        if (val == null) {
-            delete(key);
+
+        if (contains(key)){
+            System.out.println("product already exists");
             return;
+        } else {
+            if (key == null) throw new IllegalArgumentException("first argument to put() is null");
+            if (val == null) {
+                delete(key);
+                return;
+            }
         }
 
         root = put(root, key, val);
