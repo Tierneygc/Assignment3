@@ -11,32 +11,22 @@ public class Main {
 
         String csvFile = "src/amazon-product-data.csv";
         String line = "";
-        String csvSplitBy = ",";
+
         int k = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-br.readLine();
-            while (k < 100 && (line = br.readLine()) != null) {
 
-                // Use comma as separator
-                String[] data = line.split(csvSplitBy);
-
-                for(String d : data){
-                    System.out.println(d);
-
-                }
-                System.out.println();
-
-                // Process the data
-                String productId = data[0];
-                String productName = data[1];
-                String productCategory = data[2];
-                String productPrice = data[3];
-
-                Product product = new Product(productName, productCategory,  productPrice);
-                products.put(productId, product);
+            line = br.readLine();
+            System.out.println("lll" + line);
+            while ((line = br.readLine()) != null) {
 
 
-                k++;
+                System.out.println("l" + line);
+                Product product = parseProduct(line);
+
+                products.put(product.getProductId(), product);
+
+//k++;
+
             }
 
         } catch (IOException e) {
@@ -44,6 +34,71 @@ br.readLine();
         }
 
         //System.out.println(products.isBalanced());
+
+
+        }
+
+       public static Product parseProduct(String line){
+           String productId = "";
+           String productName = "";
+           String productCategory = "";
+           String productPrice = "";
+
+           boolean inQuote = false;
+           int a = 1;
+
+           char curr = line.charAt(0);
+           StringBuilder sb = new StringBuilder("");
+
+           for (int i = 0; i < line.length(); i++){
+               curr = line.charAt(i);
+               if (curr == '\"'){
+                   inQuote = !inQuote;
+               }
+               else if(inQuote == false && curr == ','){
+
+                   if (a == 1){
+
+                       productId = sb.toString();
+                       sb.setLength(0);
+
+                   }
+                   else if (a == 2){
+
+                       productName = sb.toString();
+                       sb.setLength(0);
+
+
+                   }
+                   else if (a == 3){
+
+                       productCategory = sb.toString();
+                       sb.setLength(0);
+
+
+                   }
+
+                   a++;
+               }
+               else{
+                   sb.append(curr);
+               }
+
+           }
+           if (a == 4){
+               productPrice = sb.toString();
+
+               sb.setLength(0);
+           }
+
+
+           Product product = new Product(productId, productName, productCategory, productPrice);
+//           System.out.println(product.productId);
+//           System.out.println(product.productName);
+//           System.out.println(product.productCategory);
+//           System.out.println(product.productPrice);
+           return product;
+
 
 
         }
