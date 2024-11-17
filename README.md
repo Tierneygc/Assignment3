@@ -12,4 +12,5 @@ Performance and Scalability Considerations:
   ![IMG_4306](https://github.com/user-attachments/assets/01cb5460-6434-4636-b468-5fd6c96b600b)
 
    - 
-   -  To acheive the worst case scenario, the function would go through the highest number of compares, which would be one red node for every step down of black nodes to maintain black-balance. Since all paths have the same height, comparing through the highest number of nodes would mean comparing through the pathway with the highest number of red nodes, because they don't influence the height. Since red nodes lean left, this would mean taking the leftmost path.
+   -  To acheive the worst case scenario, the function would go through the highest number of compares, which would be one red node for every step down of black nodes to maintain black-balance. Since all paths have the same height, comparing through the highest number of nodes would mean comparing through the pathway with the highest number of red nodes, because they don't influence the height. Then there would be twice the number of compares than a path with all black nodes. Since red nodes lean left, this would mean taking the leftmost path.
+![IMG_4307](https://github.com/user-attachments/assets/19d9fc14-1011-43b4-ad26-b0ce8f457802)
