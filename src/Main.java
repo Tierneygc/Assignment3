@@ -17,11 +17,11 @@ public class Main {
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
 
             line = br.readLine();
-            System.out.println("lll" + line);
+//            System.out.println("lll" + line);
             while (k < 10001 && (line = br.readLine()) != null) {
 
 
-                System.out.println("l" + line);
+//                System.out.println("l" + line);
                 Product product = parseProduct(line);
 
                 products.put(product.getProductId(), product);
@@ -37,32 +37,40 @@ public class Main {
 
         //System.out.println(products.isBalanced());
         Product product = new Product("2bb94aefc3467ed83860e0e2712d5f10", "Hasegawa Ladders Lucano Step Ladder, Orange", "Home & Kitchen | Furniture | Kids' Furniture | Step Stools", "$152.27");
+        System.out.println("Inserting product id: 2bb94aefc3467ed83860e0e2712d5f10");
         products.put(product.productId, product);
+        System.out.println("2nd time inserting product id: 2bb94aefc3467ed83860e0e2712d5f10");
         products.put(product.productId, product);
+        System.out.println();
 
         Scanner scanner = new Scanner(System.in);
 
-//        for(int i = 0; i < 3; i++) {
-//            System.out.println("search product id:");
-//            String searchFor = scanner.nextLine();
-//
-//            if (products.contains(searchFor)) {
-//                Product product1 = products.get(searchFor);
-//                System.out.println(product1.productName);
-//                System.out.println(product1.productCategory);
-//                System.out.println(product1.productPrice);
-//            } else {
-//                System.out.println("Product does not exist");
-//
-//            }
-//        }
+        for(int i = 0; i < 3; i++) {
+            System.out.println("search product id:");
+            String searchFor = scanner.nextLine();
 
+            if (products.contains(searchFor)) {
+                Product product1 = products.get(searchFor);
+                System.out.println(product1.productName);
+                System.out.println(product1.productCategory);
+                System.out.println(product1.productPrice);
+            } else {
+                System.out.println("Product does not exist");
+
+            }
+        }
+        System.out.println();
+
+        System.out.print("Minimum id: ");
         System.out.println(products.min());
         products.deleteMin();
         Product product2 = new Product("0000fe97fd6c7705b08b7f4c7c5312ce","Banpresto 39652 Dragon Ball Super Blood of Saiyans Special VI S.God Goku Figure","","$17.90");
         products.put(product2.productId, product2);
+        System.out.println("Insertion worst-case time complexity: " + products.counter);
+
 
         products.get("0000fe97fd6c7705b08b7f4c7c5312ce");
+        System.out.println("Search worst-case time complexity: " + products.counter2);
 
     }
 

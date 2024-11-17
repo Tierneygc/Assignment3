@@ -43,10 +43,11 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
     }
 
     public Value get(Key key) {
+        counter2 = 0;
         if (key == null) throw new IllegalArgumentException("argument to get() is null");
         Value getval = get(root, key);
-        System.out.println(counter2);
-        counter2 = 0;
+        //System.out.println(counter2);
+//        counter2 = 0;
         return getval;
 
     }
@@ -64,6 +65,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
 
     public void put(Key key, Value val) {
         //System.out.println(key);
+        counter = 0;
 
         if (contains(key)){
             System.out.println("product already exists");
@@ -79,8 +81,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
         root = put(root, key, val);
         root.color = BLACK;
         // assert check();
-        System.out.println(counter);
-        counter = 0;
+//        System.out.println(counter);
+//        counter = 0;
     }
 
     private Node put(Node h, Key key, Value val) {
