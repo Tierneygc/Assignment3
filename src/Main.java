@@ -18,7 +18,7 @@ public class Main {
 
             line = br.readLine();
             System.out.println("lll" + line);
-            while (k < 10001 &&(line = br.readLine()) != null) {
+            while (k < 10001 && (line = br.readLine()) != null) {
 
 
                 System.out.println("l" + line);
@@ -26,7 +26,7 @@ public class Main {
 
                 products.put(product.getProductId(), product);
 
-k++;
+                k++;
 
             }
 
@@ -35,96 +35,93 @@ k++;
         }
 
 
-
         //System.out.println(products.isBalanced());
-        Product product = new Product ("2bb94aefc3467ed83860e0e2712d5f10","Hasegawa Ladders Lucano Step Ladder, Orange","Home & Kitchen | Furniture | Kids' Furniture | Step Stools","$152.27");
+        Product product = new Product("2bb94aefc3467ed83860e0e2712d5f10", "Hasegawa Ladders Lucano Step Ladder, Orange", "Home & Kitchen | Furniture | Kids' Furniture | Step Stools", "$152.27");
         products.put(product.productId, product);
         products.put(product.productId, product);
 
         Scanner scanner = new Scanner(System.in);
 
-        for(int i = 0; i < 3; i++) {
-            System.out.println("search product id:");
-            String searchFor = scanner.nextLine();
+//        for(int i = 0; i < 3; i++) {
+//            System.out.println("search product id:");
+//            String searchFor = scanner.nextLine();
+//
+//            if (products.contains(searchFor)) {
+//                Product product1 = products.get(searchFor);
+//                System.out.println(product1.productName);
+//                System.out.println(product1.productCategory);
+//                System.out.println(product1.productPrice);
+//            } else {
+//                System.out.println("Product does not exist");
+//
+//            }
+//        }
 
-            if (products.contains(searchFor)) {
-                Product product1 = products.get(searchFor);
-                System.out.println(product1.productName);
-                System.out.println(product1.productCategory);
-                System.out.println(product1.productPrice);
+        System.out.println(products.min());
+        products.deleteMin();
+        Product product2 = new Product("0000fe97fd6c7705b08b7f4c7c5312ce","Banpresto 39652 Dragon Ball Super Blood of Saiyans Special VI S.God Goku Figure","","$17.90");
+        products.put(product2.productId, product2);
+
+        products.get("0000fe97fd6c7705b08b7f4c7c5312ce");
+
+    }
+
+    public static Product parseProduct(String line) {
+        String productId = "";
+        String productName = "";
+        String productCategory = "";
+        String productPrice = "";
+
+        boolean inQuote = false;
+        int a = 1;
+
+        char curr = line.charAt(0);
+        StringBuilder sb = new StringBuilder("");
+
+        for (int i = 0; i < line.length(); i++) {
+            curr = line.charAt(i);
+            if (curr == '\"') {
+                inQuote = !inQuote;
+            } else if (inQuote == false && curr == ',') {
+
+                if (a == 1) {
+
+                    productId = sb.toString();
+                    sb.setLength(0);
+
+                } else if (a == 2) {
+
+                    productName = sb.toString();
+                    sb.setLength(0);
+
+
+                } else if (a == 3) {
+
+                    productCategory = sb.toString();
+                    sb.setLength(0);
+
+
+                }
+
+                a++;
             } else {
-                System.out.println("Product does not exist");
-
+                sb.append(curr);
             }
+
+        }
+        if (a == 4) {
+            productPrice = sb.toString();
+
+            sb.setLength(0);
         }
 
 
-
-
-        }
-
-       public static Product parseProduct(String line){
-           String productId = "";
-           String productName = "";
-           String productCategory = "";
-           String productPrice = "";
-
-           boolean inQuote = false;
-           int a = 1;
-
-           char curr = line.charAt(0);
-           StringBuilder sb = new StringBuilder("");
-
-           for (int i = 0; i < line.length(); i++){
-               curr = line.charAt(i);
-               if (curr == '\"'){
-                   inQuote = !inQuote;
-               }
-               else if(inQuote == false && curr == ','){
-
-                   if (a == 1){
-
-                       productId = sb.toString();
-                       sb.setLength(0);
-
-                   }
-                   else if (a == 2){
-
-                       productName = sb.toString();
-                       sb.setLength(0);
-
-
-                   }
-                   else if (a == 3){
-
-                       productCategory = sb.toString();
-                       sb.setLength(0);
-
-
-                   }
-
-                   a++;
-               }
-               else{
-                   sb.append(curr);
-               }
-
-           }
-           if (a == 4){
-               productPrice = sb.toString();
-
-               sb.setLength(0);
-           }
-
-
-           Product product = new Product(productId, productName, productCategory, productPrice);
+        Product product = new Product(productId, productName, productCategory, productPrice);
 //           System.out.println(product.productId);
 //           System.out.println(product.productName);
 //           System.out.println(product.productCategory);
 //           System.out.println(product.productPrice);
-           return product;
+        return product;
 
-
-
-        }
     }
+}

@@ -2,6 +2,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
     private static final boolean RED = true;
     private static final boolean BLACK = false;
     private Node root;
+    public int counter = 0;
+    public int counter2 = 0;
 
     private class Node{
         Key key;
@@ -42,11 +44,16 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
 
     public Value get(Key key) {
         if (key == null) throw new IllegalArgumentException("argument to get() is null");
-        return get(root, key);
+        Value getval = get(root, key);
+        System.out.println(counter2);
+        counter2 = 0;
+        return getval;
+
     }
 
     private Value get(Node x, Key key) {
         while (x != null) {
+            counter2++;
             int cmp = key.compareTo(x.key);
             if      (cmp < 0) x = x.left;
             else if (cmp > 0) x = x.right;
@@ -72,10 +79,14 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
         root = put(root, key, val);
         root.color = BLACK;
         // assert check();
+        System.out.println(counter);
+        counter = 0;
     }
 
     private Node put(Node h, Key key, Value val) {
         //System.out.println(key);
+
+
 
         if (h == null) {
            // System.out.println("h");
@@ -86,7 +97,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
         else {
 //            System.out.println(key);
 //            System.out.println(root.key);
-
+            counter++;
             int cmp = key.compareTo(h.key);
             if (cmp < 0) h.left = put(h.left, key, val);
             else if (cmp > 0) h.right = put(h.right, key, val);
@@ -191,6 +202,8 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
         root = deleteMin(root);
         if (!isEmpty()) root.color = BLACK;
 
+
+
     }
 
     private Node balance(Node h) {
@@ -258,11 +271,55 @@ public class RedBlackBST<Key extends Comparable<Key>, Value>{
         return balance(h);
     }
 
+    public void deleteMax() {
 
 
+        // if both children of root are black, set root to red
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+
+        root = deleteMax(root);
+        if (!isEmpty()) root.color = BLACK;
+        // assert check();
+    }
+
+    // delete the key-value pair with the maximum key rooted at h
+    private Node deleteMax(Node h) {
+        if (isRed(h.left))
+            h = rotateRight(h);
+
+        if (h.right == null)
+            return null;
+
+        if (!isRed(h.right) && !isRed(h.right.left))
+            h = moveRedRight(h);
+
+        h.right = deleteMax(h.right);
+
+        return balance(h);
+    }
 
 
+    public Key max() {
+
+        return max(root).key;
+    }
+
+    // the largest key in the subtree rooted at x; null if no such key
+    private Node max(Node x) {
+        // assert x != null;
+        if (x.right == null) return x;
+        else                 return max(x.right);
+    }
 
 
 
 }
+
+
+
+
+
+
+
+
